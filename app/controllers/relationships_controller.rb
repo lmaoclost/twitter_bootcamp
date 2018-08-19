@@ -1,21 +1,19 @@
 class RelationshipsController < ApplicationController
     def create
-        @User = current_user.follow.new(current_user_params)
+        @user = User.find(params[:id])
 
-        if @User.save
-            redirect_to root_path, notice: 'Following'
+        if current_user.following? @user
+            redirect_to user_path(@user), alert: 'Usuário já está sendo seguido'
         else
-            redirect_to root_path, alert: 'Erro'
+            current_user.follow! @user
+            redirect_to user_path(@user), notice: 'Usuário seguido com sucesso'
         end
     end
     
     def destroy
-        @User = current_user.follow.new(current_user_params)
+        @user = User.find(params[:id])
 
-        if @tweet.save
-            redirect_to root_path, notice: 'Unfollowing'
-        else
-            redirect_to root_path, alert: 'Erro'
-        end
+        current_user.unfollow! @user
+        redirect_to user_path(@user), notice: 'Usuário deixou de ser seguido'
     end
 end

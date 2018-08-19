@@ -11,7 +11,7 @@
     <% end %>
 
     <ul>
-        <% current_user.tweets.each do |tweet| %>
+        <% current_user.feed.each do |tweet| %>
             <li><%= tweet.content %></li>
         <% end %>
     </ul>
