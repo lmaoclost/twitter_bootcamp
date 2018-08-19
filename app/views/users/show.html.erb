@@ -2,6 +2,16 @@
 
 <h2>Tweets (<%= @user.tweets.count %>)</h2>
 
+<% if current_user.id != @user.id %>
+    <%= form_for @relationship do |r| %>
+        <% if current_user.following? @user.id %>
+                <%= link_to 'Unfollow', current_user.unfollow! @user %>
+        <% else %>
+                <%= link_to 'Follow', current_user.follow! @user %>
+        <% end %>
+    <% end %>
+<% end %>
+
 <% if @user.tweets.empty? %>
     <p>Usuário ainda não tem tweets</p>
 <% else %>
@@ -18,8 +28,8 @@
     <p>Usuário ainda não tem seguidores</p>
 <% else %>
     <ul>
-        <% @user.followers.each do |followers| %>
-            <li><%= @followers %></li>
+        <% @user.followers.each do |follow| %>
+            <li><%= follow.email %></li>
         <% end %>
     </ul>
 <% end %>
