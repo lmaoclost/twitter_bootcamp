@@ -11,3 +11,15 @@
         <% end %>
     </ul>
 <% end %>
+
+<h2>Seguidores (<%= @user.followers.count %>)</h2>
+
+<% if @user.followers.empty? %>
+    <p>Usuário ainda não tem seguidores</p>
+<% else %>
+    <ul>
+        <% @user.followers.each do |followers| %>
+            <li><%= @followers %></li>
+        <% end %>
+    </ul>
+<% end %>
